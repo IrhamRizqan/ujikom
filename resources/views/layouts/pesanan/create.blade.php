@@ -44,7 +44,12 @@
                                         </div>
                                     </div>
                                     <hr>
-                                @endforeach
+                                    @endforeach
+                                    <select name="" id="" class="form-control my-3">
+                                        <option value="">Pilih Pembayaran</option>
+                                        <option value="COD">COD</option>
+                                    </select>
+                                    <a href="/pesanan/bayar/{{ $data->penjualan_id }}/{{$data->id}}"><button class="btn btn-primary">Bayar</button></a>
                             </div>
                         </div>
                     </div>

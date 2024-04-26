@@ -8,7 +8,9 @@
             <div class="container-fluid p-0 row">
                 <div class="text-end">
                     <br><a href="{{ route('pelanggan.create') }}" class="btn btn-primary col">Tambah Data Pelanggan</a>
+                    @if (Auth()->user()->roles == "Administrator")
                     <button id="btnExport" onclick="exportReportToExcel(this)" class="btn btn-primary">Export Report</button>
+                    @endif
                 </div>
 
                 <h1 class="h3 mb-3"><strong>Pelanggan</strong></h1>

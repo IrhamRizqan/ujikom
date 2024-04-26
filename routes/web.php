@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DetailPenjualanController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\ProdukLogController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\strukController;
 use Illuminate\Support\Facades\App;
@@ -32,9 +34,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/pesanan', [DetailPenjualanController::class, 'index'])->name('pesanan.index');
     Route::get('/pesanan/create/{id}', [DetailPenjualanController::class, 'create'])->name('pesanan.create');
     Route::delete('/pesanan/create/{id}', [DetailPenjualanController::class, 'destroy']);
-    Route::get('/pesanan/proses/{id}/{penjualan_id}', [DetailPenjualanController::class, 'store']);
     Route::get('/pesanan/{pesanan}/edit', [DetailPenjualanController::class, 'edit'])->name('pesanan.edit');
     Route::put('/pesanan/{pesanan}/edit', [DetailPenjualanController::class, 'update']);
+    Route::get('/pesanan/proses/{id}/{penjualan_id}', [DetailPenjualanController::class, 'store']);
     Route::delete('/pesanan/proses/{id}/{penjualan_id}', [DetailPenjualanController::class, 'destroy'])->name('pesanan.destroy');
 
     Route::get('/pelanggan', [PelangganController::class, 'index'])->name('pelanggan.index');
@@ -44,14 +46,16 @@ Route::middleware('auth')->group(function () {
     Route::put('/pelanggan/{pelanggan}/edit', [PelangganController::class, 'update']);
     Route::delete('/pelanggan/delete/{id}', [PelangganController::class, 'destroy'])->name('pelanggan.destroy');
 
+
+
+    Route::get('/log', [ProdukLogController::class, 'index'])->middleware('admin')->name('log.index');
+
+
+    Route::get('/pesanan/bayar/{penjualan_id}/{id}', [DetailPenjualanController::class, 'pembayaran']);
+    Route::post('/pesanan/bayar/{id}', [DetailPenjualanController::class, 'pembayaran']);
+
 });
 
-Route::get('logout', function ()
-{
-    auth()->logout();
-    Session()->flush();
-
-    return Redirect::to('/');
-})->name('logout');
+Route::get('logout', [DashboardController::class, 'logout'])->name('logout');
 
 require __DIR__.'/auth.php';

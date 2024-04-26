@@ -8,7 +8,9 @@
             <div class="container-fluid p-0 row">
                 <div class="text-end">
                     <br><a href="{{ route('produk.create') }}" class="btn btn-primary col">Tambah Data Produk</a>
+                    @if (Auth()->user()->roles == "Administrator")
                     <button id="btnExport" onclick="exportReportToExcel(this)" class="btn btn-primary">Export Report</button>
+                    @endif
                 </div>
 
                 <h1 class="h3 mb-3"><strong>Produk</strong></h1>
@@ -51,12 +53,12 @@
 <script>
     function exportReportToExcel() {
         let table = document.getElementsByTagName(
-        "table"); // you can use document.getElementById('tableId') as well by providing id to the table tag
+        "table");
         TableToExcel.convert(table[
         0], { // html code may contain multiple tables so here we are refering to 1st table tag
-            name: `PelangganReport.xlsx`, // fileName you could use any name
+            name: `PelangganReport.xlsx`,
             sheet: {
-                name: 'Pelanggan' // sheetName
+                name: 'Pelanggan'
             }
         })
     };

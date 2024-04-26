@@ -70,6 +70,16 @@ class DetailPenjualanController extends Controller
         //
     }
 
+    public function pembayaran($id){
+        $detailPenjualan = detailPenjualan::join('penjualan', 'penjualan.id', '=', 'detailpenjualan.penjualan_id')
+        ->join('produk', 'produk.id', '=', 'detailpenjualan.produk_id')
+        ->where('detailPenjualan.id', $id)
+        ->get();
+        dd($detailPenjualan);
+        $produk = produk::all();
+        return view('layouts.pesanan.bayar', compact(['produk', 'id', 'detailPenjualan']));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

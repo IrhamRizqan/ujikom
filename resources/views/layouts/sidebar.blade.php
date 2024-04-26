@@ -33,6 +33,14 @@
                 </a>
             </li>
 
+            @if (Auth()->user()->roles == "Administrator")
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{route('log.index')}}">
+                    <i class="align-middle" data-feather="database"></i> <span class="align-middle">Log</span>
+                </a>
+            </li>
+            @endif
+
             <li class="sidebar-item">
                 <form class="sidebar-link" id="logout-form" action="{{ url('logout') }}" method="POST">
                     {{ csrf_field() }}
